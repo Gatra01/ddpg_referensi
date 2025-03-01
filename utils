@@ -40,10 +40,14 @@ def evaluate_policy(env, agent, turns = 3):
     for j in range(turns):
         s, info = env.reset()
         done = False
+        step = 0
         while not done:
+            step += 1
             # Take deterministic actions at test time
             a = agent.select_action(s, deterministic=True)
             s_next, r, dw, tr, info = env.step(a)
+            if dw == True or tr == True :
+                print(f'dw : {dw}, tr : {tr}, step : {step}')
             done = (dw or tr)
 
             total_scores += r
