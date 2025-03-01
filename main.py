@@ -79,14 +79,15 @@ def main():
             s, info = env.reset(seed=env_seed)  # Do not use opt.seed directly, or it can overfit to opt.seed
             env_seed += 1
             done = False
-
+            langkah=0
             '''Interact & trian'''
             while not done:  
+                langkah +=1
                 if total_steps < opt.random_steps: a = env.action_space.sample()
                 else: a = agent.select_action(s, deterministic=False)
                 s_next, r, dw, tr, info = env.step(a) # dw: dead&win; tr: truncated
                 done = (dw or tr)
-
+                print(f'LOOP INTERACT DAN TRIAN, dw : {dw}, tr : {tr}, langkah : {langkah}')
                 agent.replay_buffer.add(s, a, r, s_next, dw)
                 s = s_next
                 total_steps += 1
