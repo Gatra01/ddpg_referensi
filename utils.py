@@ -45,6 +45,7 @@ def evaluate_policy(env, agent, turns = 3):
             step += 1
             # Take deterministic actions at test time
             a = agent.select_action(s, deterministic=True)
+            print(a)
             s_next, r, dw, tr, info = env.step(a)
             if dw == True or tr == True :
                 print(f'EVALUATE POLICY , dw : {dw}, tr : {tr}, step : {step}')
